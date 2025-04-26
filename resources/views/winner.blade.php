@@ -5,7 +5,7 @@
 </head>
 <body>
     <h1>Ganador</h1>
-    <p>El ganador es: {{ $winner->name }} {{ $winner->lastname }}</p>
+    <p>El ganador es: {{ $winner->id }} {{ $winner->name }} {{ $winner->lastname }}</p>
 </body>
 </html>
 

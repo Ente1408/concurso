@@ -7,7 +7,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- jQuery y Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
@@ -42,17 +42,15 @@
                                 <input type="text" id="document" name="document" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="department">Departamento:</label>
-                                <select id="department" name="department" class="form-control" required>
+                                <label for="department_id">Departamento:</label>
+                                <select id="department_id" name="department_id" class="form-control" required>
                                     <option value="">Selecciona un departamento</option>
-                                    <!-- Opciones de departamentos -->
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="city">Ciudad:</label>
-                                <select id="city" name="city" class="form-control" required>
+                                <label for="city_id">Ciudad:</label>
+                                <select id="city_id" name="city_id" class="form-control" required>
                                     <option value="">Selecciona una ciudad</option>
-                                    <!-- Opciones de ciudades -->
                                 </select>
                             </div>
                             <div class="form-group">
@@ -76,5 +74,39 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: '/load-departments',
+                method: 'GET',
+                success: function(data) {
+                    $('#department_id').empty();
+                    $('#department_id').append('<option value="">Selecciona un departamento</option>');
+                    $.each(data, function(index, department) {
+                        $('#department_id').append('<option value="' + department.codigo_dane + '">' + department.nombre + '</option>');
+                    });
+                }
+            });
+
+            $('#department_id').change(function() {
+                var cod_departamento = $(this).val();
+                $('#city_id').empty();
+                $('#city_id').append('<option value="">Selecciona una ciudad</option>');
+
+                if (cod_departamento) {
+                    $.ajax({
+                        url: '/load-cities/' + cod_departamento,
+                        method: 'GET',
+                        success: function(data) {
+                            $.each(data, function(index, city) {
+                                $('#city_id').append('<option value="' + city.cod_ciudad + '">' + city.nom_ciudad + '</option>');
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
