@@ -18,4 +18,7 @@ Route::get('/', [UserController::class, 'showRegisterForm']);
 Route::post('/register', [UserController::class, 'register']);
 Route::get('/winner', [UserController::class, 'showWinner']);   
 Route::get('/export', [ExportController::class, 'export']);
+
+Route::get('/load-departments', [ExportController::class, 'loadDepartments']);
+Route::get('/load-cities/{cod_departamento}', [ExportController::class,'loadCities']);
    
