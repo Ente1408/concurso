@@ -19,11 +19,12 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('lastname');
             $table->string('document')->unique();
-            $table->string('department');
-            $table->string('city');
+            $table->string('department_id');
+            $table->string('city_id'); 
             $table->string('phone');
             $table->string('email')->unique();
-            $table->boolean('habeas_data'); 
+            $table->boolean('habeas_data');
+
         });
     }
 
