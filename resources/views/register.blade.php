@@ -20,6 +20,13 @@
                         <h3 class="text-center">Registro</h3>
                     </div>
                     <div class="card-body">
+                        
+                        @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+                        
                         <form action="/register" method="POST">
                             @csrf
                             <div class="form-group">
